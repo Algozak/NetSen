@@ -2,6 +2,7 @@ import subprocess
 import ipaddress
 from concurrent.futures import ThreadPoolExecutor
 import socket
+from vendor import VendorLookup 
 
 COMMON_PORTS = [21, 22, 23, 25, 53, 80, 110, 135, 139, 443, 445, 3306, 3389, 8080]
 
@@ -70,8 +71,10 @@ class Scanner:
         for ip in results:
             if ip:
                 mac = self.get_mac(ip)
+                vendor = VendorLookup.get_vendor(mac) 
                 open_ports = self.scan_ports(ip)
                 host_info = {
+                    "vendor" : vendor,
                     "ip": ip,
                     "mac": mac,
                     "ports": open_ports
@@ -80,6 +83,6 @@ class Scanner:
                 discovered_hosts.append(host_info)
                 ports_str = ", ".join(map(str, open_ports)) if open_ports else "все закрыты"
 
-                print(f"[+] Хост {ip} в сети! | Его MAC-адрес - {mac} | Открытые порты: {ports_str}")
+                print(f"[+] Хост {ip} в сети! | Его MAC-адрес - {mac}\nОткрытые порты: {ports_str} | ({vendor})")
         
         return discovered_hosts
