@@ -1,6 +1,6 @@
 import argparse
-from scanner import Scanner
-from report import save_report
+from .scanner import Scanner
+from .report import save_report
 
 
 def scan():

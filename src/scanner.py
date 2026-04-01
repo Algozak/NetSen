@@ -1,9 +1,9 @@
-from decos import timer_deco
+from .decos import timer_deco
 import subprocess
 import ipaddress
 from concurrent.futures import ThreadPoolExecutor
 import socket
-from vendor import VendorLookup 
+from .vendor import VendorLookup 
 import re
 
 COMMON_PORTS = [21, 22, 23, 25, 53, 80, 110, 135, 139, 443, 445, 3306, 3389, 8080]
@@ -58,7 +58,8 @@ class Scanner:
     def discover_network(self, network: str):
         print(f"[*] Запускаю сканирование сети: {network}")
         net = ipaddress.ip_network(network, strict=False)
-        hosts = [str(ip) for ip in net.hosts()]
+        hosts = (str(ip) for ip in net.hosts())
+
         
         discovered_hosts = []
         

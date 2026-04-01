@@ -1,7 +1,15 @@
-reports/
-.venv/
+# Python
 __pycache__/
 *.pyc
-*.db
-report_*.json
-report_*.txt
+*.pyo
+
+# Установка пакета
+*.egg-info/
+.eggs/
+
+# Отчёты сканера
+reports/
+
+# Виртуальное окружение (если будешь использовать)
+.venv/
+venv/
